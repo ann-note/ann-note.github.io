@@ -1,0 +1,736 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>13. 生产成本</title><link href='https://fonts.loli.net/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+
+
+/* meyer reset -- http://meyerweb.com/eric/tools/css/reset/ , v2.0 | 20110126 | License: none (public domain) */
+
+@include-when-export url(https://fonts.loli.net/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext);
+
+/* =========== */
+
+:root {
+	--active-file-bg-color: #dadada;
+	--active-file-bg-color: rgba(32, 43, 51, 0.63);
+	--active-file-text-color: white;
+	--bg-color: #f3f2ee;
+	--text-color: #1f0909;
+	--control-text-color: #444;
+	--rawblock-edit-panel-bd: #e5e5e5;
+
+	--select-text-bg-color: rgba(32, 43, 51, 0.63);
+  --select-text-font-color: white;
+}
+
+pre {
+	--select-text-bg-color: #36284e;
+	--select-text-font-color: #fff;
+}
+
+html {
+	font-size: 16px;
+}
+
+html, body {
+	background-color: #f3f2ee;
+	font-family: "PT Serif", 'Times New Roman', Times, serif;
+	color: #1f0909;
+	line-height: 1.5em;
+}
+
+/*#write {
+	overflow-x: auto;
+    max-width: initial;
+	padding-left: calc(50% - 17em);
+    padding-right: calc(50% - 17em);
+}
+
+@media (max-width: 36em) {
+ 	#write {
+ 		padding-left: 1em;
+    	padding-right: 1em;
+ 	}
+}*/
+
+#write {
+	max-width: 40em;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+			max-width: 914px;
+	}
+}
+
+ol li {
+	list-style-type: decimal;
+	list-style-position: outside;
+}
+ul li {
+	list-style-type: disc;
+	list-style-position: outside;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* styles */
+
+/* ====== */
+
+/* headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: bold;
+}
+h1 {
+	font-size: 1.875em;
+	/*30 / 16*/
+	line-height: 1.6em;
+	/* 48 / 30*/
+	margin-top: 2em;
+}
+h2,
+h3 {
+	font-size: 1.3125em;
+	/*21 / 16*/
+	line-height: 1.15;
+	/*24 / 21*/
+	margin-top: 2.285714em;
+	/*48 / 21*/
+	margin-bottom: 1.15em;
+	/*24 / 21*/
+}
+h3 {
+	font-weight: normal;
+}
+h4 {
+	font-size: 1.125em;
+	/*18 / 16*/
+	margin-top: 2.67em;
+	/*48 / 18*/
+}
+h5,
+h6 {
+	font-size: 1em;
+	/*16*/
+}
+h1 {
+	border-bottom: 1px solid;
+	margin-bottom: 1.875em;
+	padding-bottom: 0.8125em;
+}
+/* links */
+
+a {
+	text-decoration: none;
+	color: #065588;
+}
+a:hover,
+a:active {
+	text-decoration: underline;
+}
+/* block spacing */
+
+p,
+blockquote,
+.md-fences {
+	margin-bottom: 1.5em;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-bottom: 1.5em;
+}
+/* blockquote */
+
+blockquote {
+	font-style: italic;
+	border-left: 5px solid;
+	margin-left: 2em;
+	padding-left: 1em;
+}
+/* lists */
+
+ul,
+ol {
+	margin: 0 0 1.5em 1.5em;
+}
+/* tables */
+.md-meta,.md-before, .md-after {
+	color:#999;
+}
+
+table {
+	margin-bottom: 1.5em;
+	/*24 / 16*/
+	font-size: 1em;
+	/* width: 100%; */
+}
+thead th,
+tfoot th {
+	padding: .25em .25em .25em .4em;
+	text-transform: uppercase;
+}
+th {
+	text-align: left;
+}
+td {
+	vertical-align: top;
+	padding: .25em .25em .25em .4em;
+}
+
+code,
+.md-fences {
+	background-color: #dadada;
+}
+
+code {
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.md-fences {
+	margin-left: 2em;
+	margin-bottom: 3em;
+	padding-left: 1ch;
+	padding-right: 1ch;
+}
+
+pre,
+code,
+tt {
+	font-size: .875em;
+	line-height: 1.714285em;
+}
+/* some fixes */
+
+h1 {
+	line-height: 1.3em;
+	font-weight: normal;
+	margin-bottom: 0.5em;
+}
+
+p + ul,
+p + ol{
+	margin-top: .5em;
+}
+
+h3 + ul,
+h4 + ul,
+h5 + ul,
+h6 + ul,
+h3 + ol,
+h4 + ol,
+h5 + ol,
+h6 + ol {
+	margin-top: .5em;
+}
+
+li > ul,
+li > ol {
+	margin-top: inherit;
+	margin-bottom: 0;
+}
+
+li ol>li {
+	list-style-type: lower-alpha;
+}
+
+li li ol>li{
+	list-style-type: lower-roman;
+}
+
+h2,
+h3 {
+	margin-bottom: .75em;
+}
+hr {
+	border-top: none;
+	border-right: none;
+	border-bottom: 1px solid;
+	border-left: none;
+}
+h1 {
+	border-color: #c5c5c5;
+}
+blockquote {
+	border-color: #bababa;
+	color: #656565;
+}
+
+blockquote ul,
+blockquote ol {
+	margin-left:0;
+}
+
+.ty-table-edit {
+	background-color: transparent;
+}
+thead {
+	background-color: #dadada;
+}
+tr:nth-child(even) {
+	background: #e8e7e7;
+}
+hr {
+	border-color: #c5c5c5;
+}
+.task-list{
+	padding-left: 1rem;
+}
+
+.md-task-list-item {
+	padding-left: 1.5rem;
+	list-style-type: none;
+}
+
+.md-task-list-item > input:before {
+	content: '\221A';
+	display: inline-block;
+	width: 1.25rem;
+  	height: 1.6rem;
+	vertical-align: middle;
+	text-align: center;
+	color: #ddd;
+	background-color: #F3F2EE;
+}
+
+.md-task-list-item > input:checked:before,
+.md-task-list-item > input[checked]:before{
+	color: inherit;
+}
+
+#write pre.md-meta-block {
+	min-height: 1.875rem;
+	color: #555;
+	border: 0px;
+	background: transparent;
+	margin-top: -4px;
+	margin-left: 1em;
+	margin-top: 1em;
+}
+
+.md-image>.md-meta {
+	color: #9B5146;
+}
+
+.md-image>.md-meta{
+	font-family: Menlo, 'Ubuntu Mono', Consolas, 'Courier New', 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', serif;
+}
+
+
+#write>h3.md-focus:before{
+	left: -1.5rem;
+	color:#999;
+	border-color:#999;
+}
+#write>h4.md-focus:before{
+	left: -1.5rem;
+	top: .25rem;
+	color:#999;
+	border-color:#999;
+}
+#write>h5.md-focus:before{
+	left: -1.5rem;
+	top: .0.3125rem;
+	color:#999;
+	border-color:#999;
+}
+#write>h6.md-focus:before{
+	left: -1.5rem;
+	top: 0.3125rem;
+	color:#999;
+	border-color:#999;
+}
+
+.md-toc:focus .md-toc-content{
+	margin-top: 19px;
+}
+
+.md-toc-content:empty:before{
+	color: #065588;
+}
+.md-toc-item {
+	color: #065588;
+}
+#write div.md-toc-tooltip {
+	background-color: #f3f2ee;
+}
+
+#typora-sidebar {
+	background-color: #f3f2ee;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.375);
+  	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.375);
+}
+
+.pin-outline #typora-sidebar {
+	background: inherit;
+	box-shadow: none;
+	border-right: 1px dashed;
+}
+
+.pin-outline #typora-sidebar:hover .outline-title-wrapper {
+	border-left:1px dashed;
+}
+
+.outline-item:hover {
+  background-color: #dadada;
+  border-left: 28px solid #dadada;
+  border-right: 18px solid #dadada;
+}
+
+.typora-node .outline-item:hover {
+  	border-right: 28px solid #dadada;
+}
+
+.outline-expander:before {
+  content: "\f0da";
+  font-family: FontAwesome;
+  font-size:14px;
+  top: 1px;
+}
+
+.outline-expander:hover:before,
+.outline-item-open>.outline-item>.outline-expander:before {
+  content: "\f0d7";
+}
+
+.modal-content {
+	background-color: #f3f2ee;
+}
+
+.auto-suggest-container ul li {
+	list-style-type: none;
+}
+
+/** UI for electron */
+
+.megamenu-menu,
+#top-titlebar, #top-titlebar *,
+.megamenu-content {
+	background: #f3f2ee;
+	color: #1f0909;
+}
+
+.megamenu-menu-header {
+	border-bottom: 1px dashed #202B33;
+}
+
+.megamenu-menu {
+	box-shadow: none;
+	border-right: 1px dashed;
+}
+
+header, .context-menu, .megamenu-content, footer {
+	font-family: "PT Serif", 'Times New Roman', Times, serif;
+    color: #1f0909;
+}
+
+#megamenu-back-btn {
+	color: #1f0909;
+	border-color: #1f0909;
+}
+
+.megamenu-menu-header #megamenu-menu-header-title:before {
+	color: #1f0909;
+}
+
+.megamenu-menu-list li a:hover, .megamenu-menu-list li a.active {
+	color: inherit;
+	background-color: #e8e7df;
+}
+
+.long-btn:hover {
+	background-color: #e8e7df;
+}
+
+#recent-file-panel tbody tr:nth-child(2n-1) {
+    background-color: transparent !important;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(2) {
+    color: inherit;
+}
+
+.megamenu-menu-panel .btn {
+	background-color: #D2D1D1;
+}
+
+.btn-default {
+	background-color: transparent;
+}
+
+.typora-sourceview-on #toggle-sourceview-btn,
+.ty-show-word-count #footer-word-count {
+	background: #c7c5c5;
+}
+
+#typora-quick-open {
+    background-color: inherit;
+}
+
+.md-diagram-panel {
+	margin-top: 8px;
+}
+
+.file-list-item-file-name {
+	font-weight: initial;
+}
+
+.file-list-item-summary {
+	opacity: 1;
+}
+
+.file-list-item {
+	color: #777;
+}
+
+.file-list-item.active {
+	background-color: inherit;
+	color: black;
+}
+
+.ty-side-sort-btn.active {
+	background-color: inherit;
+}
+
+.file-list-item.active .file-list-item-file-name  {
+	font-weight: bold;
+}
+
+.file-list-item{
+    opacity:1 !important;
+}
+
+.file-library-node.active>.file-node-background{
+	background-color: rgba(32, 43, 51, 0.63);
+	background-color: var(--active-file-bg-color);
+}
+
+.file-tree-node.active>.file-node-content{
+	color: white;
+	color: var(--active-file-text-color);
+}
+
+.md-task-list-item>input {
+	margin-left: -1.7em;
+	margin-top: calc(1rem - 12px);
+}
+
+input {
+	border: 1px solid #aaa;
+}
+
+.megamenu-menu-header #megamenu-menu-header-title,
+.megamenu-menu-header:hover, 
+.megamenu-menu-header:focus {
+	color: inherit;
+}
+
+.dropdown-menu .divider {
+	border-color: #e5e5e5;
+}
+
+/* https://github.com/typora/typora-issues/issues/2046 */
+.os-windows-7 strong,
+.os-windows-7 strong  {
+	font-weight: 760;
+}
+
+.ty-preferences .btn-default {
+	background: transparent;
+}
+
+.ty-preferences .window-header {
+	border-bottom: 1px dashed #202B33;
+	box-shadow: none;
+}
+
+#sidebar-loading-template, #sidebar-loading-template.file-list-item {
+	color: #777;
+}
+
+
+</style>
+</head>
+<body class='typora-export os-windows' >
+<div  id='write'  class = 'is-node'><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n282"><a class="md-toc-inner" href="#导言">导言</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n5"><a class="md-toc-inner" href="#131-什么是成本">13.1 什么是成本</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n6"><a class="md-toc-inner" href="#1311-总收益总成本和利润">13.1.1 总收益、总成本和利润</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n7"><a class="md-toc-inner" href="#1-企业的目标利润最大化">1. 企业的目标：利润最大化</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n10"><a class="md-toc-inner" href="#2-什么是利润">2. 什么是利润？</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n18"><a class="md-toc-inner" href="#1312-作为机会成本的成本">13.1.2 作为机会成本的成本</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n23"><a class="md-toc-inner" href="#1-显性成本和隐性成本">1. 显性成本和隐性成本</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n31"><a class="md-toc-inner" href="#2-经济学家和会计师在计算企业成本时的区别">2. 经济学家和会计师在计算企业成本时的区别</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n37"><a class="md-toc-inner" href="#1313-作为一种机会成本的资本成本">13.1.3 作为一种机会成本的资本成本</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n43"><a class="md-toc-inner" href="#1314-经济利润与会计利润">13.1.4 经济利润与会计利润</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n57"><a class="md-toc-inner" href="#132-生产与成本">13.2 生产与成本</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n58"><a class="md-toc-inner" href="#1321-本节的重要简单化假设">13.2.1 本节的重要简单化假设</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n69"><a class="md-toc-inner" href="#1322-生产函数">13.2.2 生产函数</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n70"><a class="md-toc-inner" href="#1-生产函数的概念">1. 【生产函数】的概念</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n72"><a class="md-toc-inner" href="#1323-从生产函数到总成本曲线">13.2.3 从生产函数到总成本曲线</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n73"><a class="md-toc-inner" href="#1-以小明的蛋糕厂为例">1. 以小明的蛋糕厂为例</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n88"><a class="md-toc-inner" href="#2-生产函数和总成本曲线">2. 生产函数和总成本曲线：</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n96"><a class="md-toc-inner" href="#3-生产函数和总成本曲线的斜率的关系">3. 生产函数和总成本曲线的斜率的关系？</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n115"><a class="md-toc-inner" href="#133-成本的各种衡量指标">13.3 成本的各种衡量指标</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n116"><a class="md-toc-inner" href="#1331-导言">13.3.1 导言</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n123"><a class="md-toc-inner" href="#1332-各种成本衡量指标">13.3.2 各种成本衡量指标</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n124"><a class="md-toc-inner" href="#1-固定成本与可变成本">1. 固定成本与可变成本</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n132"><a class="md-toc-inner" href="#2-平均成本与边际成本">2. 平均成本与边际成本</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n152"><a class="md-toc-inner" href="#1333-成本曲线及其形状">13.3.3 成本曲线及其形状</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n153"><a class="md-toc-inner" href="#1-导言">1. 导言</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n159"><a class="md-toc-inner" href="#2-递增的边际成本">2. 递增的边际成本</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n165"><a class="md-toc-inner" href="#3-u形平均总成本">3. U形平均总成本</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n186"><a class="md-toc-inner" href="#4-边际成本和平均总成本之间的关系">4. 边际成本和平均总成本之间的关系</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n212"><a class="md-toc-inner" href="#1334-典型的成本曲线">13.3.4 典型的成本曲线</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n227"><a class="md-toc-inner" href="#134-短期成本与长期成本">13.4 短期成本与长期成本</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n228"><a class="md-toc-inner" href="#1341-短期与长期平均总成本之间的关系">13.4.1 短期与长期平均总成本之间的关系</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n249"><a class="md-toc-inner" href="#1342-规模经济与规模不经济">13.4.2 规模经济与规模不经济</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n250"><a class="md-toc-inner" href="#1-长期平均总成本曲线的形状反映了成本如何随着一个企业的经营规模而变动的信息">1. 长期平均总成本曲线的形状反映了成本如何随着一个企业的经营规模而变动的信息</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n251"><a class="md-toc-inner" href="#2-三个概念">2. 三个概念：</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n259"><a class="md-toc-inner" href="#3-什么会引起规模经济和规模不经济">3. 什么会引起规模经济和规模不经济？</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n265"><a class="md-toc-inner" href="#4-用规模经济和规模不经济解释长期总成本曲线呈u形的原因">4. 用规模经济和规模不经济解释长期总成本曲线呈U形的原因</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n271"><a class="md-toc-inner" href="#135-总结">13.5 总结</a></span></p></div><p>&nbsp;</p><h1><a name="导言" class="md-header-anchor"></a><span>导言</span></h1><p><span>在本章和以下各章中，我们将更详细地考察企业行为。这个主题将有利于我们更好地理解供给曲线背后的决策。这个主题可能很枯燥且具技术性，但这些内容</span><strong><span>为后面令人着迷的主题提供了一个极为重要的基础</span></strong><span>。</span></p><p><span>本章旨在提出一些我们可以用于研究企业如何做出生产与定价决策的工具。本章我们讨论的是企业的</span><strong><span>生产成本</span></strong><span>。企业成本是其生产和定价决策的一个关键决定因素。本章中我们将定义一些经济学家用来衡量一个企业的成本的变量，并考察这些变量之间的关系。</span></p><p><span>下面是本章的思维导图，绿色高亮部分是本章的重点概念。</span><img src="image-20200717170207582.png" referrerpolicy="no-referrer" alt="image-20200717170207582"></p><h1><a name="131-什么是成本" class="md-header-anchor"></a><span>13.1 什么是成本</span></h1><h2><a name="1311-总收益总成本和利润" class="md-header-anchor"></a><span>13.1.1 总收益、总成本和利润</span></h2><h3><a name="1-企业的目标利润最大化" class="md-header-anchor"></a><span>1. 企业的目标：利润最大化</span></h3><blockquote><p><span>经济学家通常假设，企业的目标是利润最大化，而且他们发现，</span><strong><span>这个假设在大多数情况下都能很好地发挥作用</span></strong><span>。</span></p></blockquote><h3><a name="2-什么是利润" class="md-header-anchor"></a><span>2. 什么是利润？</span></h3><ul><li><mark><span>【总收益（total revenue）】</span></mark><span>：企业出售其产品所得到的货币量，等于企业出售的产量乘以出售这些产品的价格。</span></li><li><mark><span>【总成本（total cost）】</span></mark><span>：企业用于生产的投入品的市场价值</span></li><li><mark><span>【利润（profit）】</span></mark><span>：总收益减去总成本</span></li></ul><h2><a name="1312-作为机会成本的成本" class="md-header-anchor"></a><span>13.1.2 作为机会成本的成本</span></h2><blockquote><p><span>第一章回顾：</span></p><p><span>经济学十大原理之一：某些东西的成本是你为了得到它所放弃的东西。</span></p><p><mark><span>【机会成本】</span></mark><span>：为了得到某种东西所必须放弃的所有东西。</span></p></blockquote><h3><a name="1-显性成本和隐性成本" class="md-header-anchor"></a><span>1. 显性成本和隐性成本</span></h3><ul><li><mark><span>【显性成本（explicit costs）】</span></mark><span>：需要企业支出货币的投入成本</span></li><li><mark><span>【隐性成本（implicit costs）】</span></mark><span>：不需要企业支出货币的投入成本</span></li><li><span>假设小明精通电脑，作为程序员每工作一小时可以赚200元。如果小明开了蛋糕店，在蛋糕店工作的每一个小时，她都放弃了200元的收入，而这种放弃的收入就是隐性成本。</span></li></ul><h3><a name="2-经济学家和会计师在计算企业成本时的区别" class="md-header-anchor"></a><span>2. 经济学家和会计师在计算企业成本时的区别</span></h3><ul><li><span>经济学家既考虑显性成本，也考虑隐性成本。因为二者都会影响企业的生产和定价的决策。（设想一个极端的例子，如果小明做程序员，一小时可以赚1000元，那么她很可能会放弃开蛋糕店，成为一名全职程序员）</span></li><li><span>会计师只关注显性成本，因为其工作是记录流入和流出企业的货币。</span></li></ul><h2><a name="1313-作为一种机会成本的资本成本" class="md-header-anchor"></a><span>13.1.3 作为一种机会成本的资本成本</span></h2><blockquote><p><span>几乎每一个企业都有一项重要的隐性成本——投资于企业的金融资本的机会成本。</span></p></blockquote><ul><li><span>例子：加入小明用她储蓄的30万美元买下了蛋糕店。这30万美元若存入银行，她每年将得到1.5万美元的利息。因此，为了开蛋糕店，她放弃了每年1.5万美元的利息收入，这也是小明的蛋糕店的隐性机会成本之一。（小明开店前必然会考虑这些机会成本）。</span></li></ul><h2><a name="1314-经济利润与会计利润" class="md-header-anchor"></a><span>13.1.4 经济利润与会计利润</span></h2><ul><li><p><span>经济学家衡量企业的</span><mark><span>【经济利润（economic profit）】</span></mark><span>，即企业的总收益减去生产所销售物品与服务的总机会成本（显性的和隐性的）</span></p><ul><li><strong><span>经济利润十分重要，因为它是企业供给物品与服务的动机所在。</span></strong></li><li><span>获得正经济利润的企业将继续经营，反之则关闭企业，退出该行业</span></li></ul></li><li><p><span>会计师衡量企业的</span><mark><span>【会计利润（accounting profit）】</span></mark><span>，即企业的总收益减去企业的显性成本</span></p></li><li><p><span>下图总结了经济学家与会计师的差别：</span></p><p><img src="image-20200717172039213.png" referrerpolicy="no-referrer" alt="图1 经济学家和会计师的区别"></p></li></ul><h1><a name="132-生产与成本" class="md-header-anchor"></a><span>13.2 生产与成本</span></h1><h2><a name="1321-本节的重要简单化假设" class="md-header-anchor"></a><span>13.2.1 本节的重要简单化假设</span></h2><ul><li><p><span>本节分析企业在短期内面临的生产决策。由于在短期中，企业不可能很快扩大生产规模（小明不可能在一夜之间建立一个更大的蛋糕工厂），因此本节有两个重要的简单化假设：</span></p><ul><li><span>小明的蛋糕工厂规模是固定的</span></li><li><span>小明只能通过改变工人数量来改变生产的蛋糕量</span></li></ul></li><li><p><span>至于长期成本如何变动，将在13.4节中进行分析。</span></p></li></ul><h2><a name="1322-生产函数" class="md-header-anchor"></a><span>13.2.2 生产函数</span></h2><h3><a name="1-生产函数的概念" class="md-header-anchor"></a><span>1. 【生产函数】的概念</span></h3><p><mark><span>【生产函数（production function）】</span></mark><span>：用于生产一种物品的投入量与该物品的产量之间的关系。</span></p><h2><a name="1323-从生产函数到总成本曲线" class="md-header-anchor"></a><span>13.2.3 从生产函数到总成本曲线</span></h2><h3><a name="1-以小明的蛋糕厂为例" class="md-header-anchor"></a><span>1. 以小明的蛋糕厂为例</span></h3><p><img src="image-20200717180402580.png" referrerpolicy="no-referrer" alt="表1 蛋糕厂成本表"></p><ul><li><p><span>蛋糕厂的投入量是工人，产量是蛋糕，上表中的前两列是工人数量和蛋糕产量之间的关系表。</span></p></li><li><p><mark><span>【边际产量（marginal product）】</span></mark><span>，即增加一单位投入所引起的产量的增加。在表中的第三列表示。</span></p><ul><li><span>表中工人数量从1到2，产量增加40，因此第二个工人的边际产量是40块蛋糕。</span></li></ul></li><li><p><mark><span>【边际产量递减（diminishing marginal product）】</span></mark><span>：一种投入的边际产量随着投入量增加而减少的特征。</span></p><ul><li><span>表中工人的边际产量即呈现这个特征。之所以会这样，是因为随着工人的增加，工人们不得不共用设备，最后，厨房变得非常拥挤，工人们开始相互妨碍。</span></li></ul></li></ul><h3><a name="2-生产函数和总成本曲线" class="md-header-anchor"></a><span>2. 生产函数和总成本曲线：</span></h3><ul><li><p><span>根据上表前两列，可以绘制其生产函数如下图：</span></p><p><img src="image-20200717175427004.png" referrerpolicy="no-referrer" alt="图2 生产函数"></p></li><li><p><span>根据上表第一列和最后一列，可以绘制其总成本曲线如下图：</span></p><p><img src="image-20200717175804875.png" referrerpolicy="no-referrer" alt="图3 总成本曲线"></p></li></ul><h3><a name="3-生产函数和总成本曲线的斜率的关系" class="md-header-anchor"></a><span>3. 生产函数和总成本曲线的斜率的关系？</span></h3><ul><li><p><strong><span>生产函数和总成本曲线是一枚硬币的正反两面，二者斜率的变化是出于同一个原因</span></strong><span>，具体推论如下：</span></p><ul><li><span>因为生产函数 = 产量 / 工人数量 → 生产函数斜率 = Δ产量 / Δ工人数量</span></li><li><span>总成本曲线 = 总成本 / 产量，上表中，总成本 = 30 + 工人数量 * 10，故总成本曲线的斜率 = Δ总成本 / Δ产量 = Δ（30 + 工人数量 *10） / Δ产量 = 10 * （Δ工人数量 / Δ产量）= 10 * </span><strong><span>生产函数斜率的倒数</span></strong></li></ul></li><li><p><span>结论如下：</span></p><blockquote><ol start='' ><li><span>生产函数曲线的斜率反映了边际产量</span></li><li><span>生产函数斜率和总成本曲线斜率的倒数正相关，前者越陡峭，后者越平坦；反之亦然。</span></li><li><span>由a和b可以推出：</span><strong><span>总成本曲线越陡峭 →生产函数就越平坦→边际产量递减</span></strong></li></ol></blockquote></li></ul><h1><a name="133-成本的各种衡量指标" class="md-header-anchor"></a><span>13.3 成本的各种衡量指标</span></h1><h2><a name="1331-导言" class="md-header-anchor"></a><span>13.3.1 导言</span></h2><ul><li><p><span>上一节讲述了总成本和生产量之间的关系，这一节将总成本细化为几个衡量指标（固定成本、可变成本、边际成本等概念），并详细分析这些指标和产量之间的关系。</span></p></li><li><p><span>本节以张三的咖啡店成本表（即下表）为基础，进行分析。</span></p><p><img src="image-20200717200140714.png" referrerpolicy="no-referrer" alt="表2 张三咖啡店的各种成本指标表"></p></li></ul><h2><a name="1332-各种成本衡量指标" class="md-header-anchor"></a><span>13.3.2 各种成本衡量指标</span></h2><h3><a name="1-固定成本与可变成本" class="md-header-anchor"></a><span>1. 固定成本与可变成本</span></h3><ul><li><mark><span>【固定成本（fixed costs）】</span></mark><span>：不随着产量变动而变动的成本。是企业即使不生产也要产生的成本，比如咖啡店的租金、会计的薪水等。</span></li><li><mark><span>【可变成本（variable costs）】</span></mark><span>：随着产量变动而变动的成本。比如咖啡豆、牛奶等的购买成本；工人的薪水等。</span></li><li><span>企业总成本TC = 固定成本FC + 可变成本VC。</span></li></ul><h3><a name="2-平均成本与边际成本" class="md-header-anchor"></a><span>2. 平均成本与边际成本</span></h3><ul><li><p><span>以下两个问题是李华决定咖啡的产量时必须考虑的问题：</span></p><ol start='' ><li><span>生产普通的一杯咖啡需要多少成本？</span></li><li><span>多生产一杯咖啡需要多少成本？（理性人考虑边际量）</span></li></ol></li><li><p><span>为了解决以上两个问题，便有了以下的四个概念</span></p><ul><li><mark><span>【平均总成本（average total cost）】</span></mark><span>：总成本除以产量，ATC</span></li><li><mark><span>【平均固定成本（average fixed cost）】</span></mark><span>：固定成本除以产量，AFC</span></li><li><mark><span>【平均可变成本（average variable cost）】</span></mark><span>：可变成本除以产量，AVC</span></li><li><mark><span>【边际成本（marginal cost）】</span></mark><span>：额外一单位产量所引起的总成本的增加，</span><strong><span>MC = ΔTC / ΔQ.</span></strong><span>  </span></li></ul></li></ul><h2><a name="1333-成本曲线及其形状" class="md-header-anchor"></a><span>13.3.3 成本曲线及其形状</span></h2><h3><a name="1-导言" class="md-header-anchor"></a><span>1. 导言</span></h3><ul><li><span>在分析企业行为时，平均成本曲线和边际成本曲线是是十分有用的。本小节需要重点掌握边际成本曲线的形状、平均总成本曲线的形状以及边际成本与平均总成本之间的关系。</span></li><li><span>本节仍以张三的咖啡店为例进行分析，由表2可以绘制咖啡店的各项成本指标的曲线图，如下图4。</span><img src="image-20200717211127652.png" referrerpolicy="no-referrer" alt="图4 咖啡店的各种成本曲线"></li></ul><h3><a name="2-递增的边际成本" class="md-header-anchor"></a><span>2. 递增的边际成本</span></h3><ul><li><span>边际成本 MC = Δ TC / ΔQ，边际产量 = ΔQ / ΔTC，所以图4中</span><strong><span>递增的边际成本反映了</span><mark><span>边际产量递减</span></mark><span>的性质</span></strong><span>。</span></li><li><span>对边际成本递增、边际产量递减现象的解释：以咖啡店为例，当产量很低时，咖啡店的资源没有充分利用，所以额外增加一名工人的边际产量很大，因此额外增加一杯咖啡的边际成本很少。相反，当产量很高时，不得不雇佣大量工人，大部分设备都被使用，额外增加工人的边际产量降低，额外增加一杯咖啡的边际成本将会很大。</span></li></ul><h3><a name="3-u形平均总成本" class="md-header-anchor"></a><span>3. U形平均总成本</span></h3><ul><li><p><span>平均总成本为什么是U形的？分析过程如下：</span></p><ol start='' ><li><p><span>平均总成本 = 平均固定成本 + 平均可变成本 = （固定成本/产量）+ （可变成本/产量）；</span></p></li><li><p><span>随着产量的增加，平均固定成本降低，平均可变成本增加；</span></p></li><li><p><span>平均总成本就是平均固定成本与平均可变成本之间的拉锯战形成的U形曲线：</span></p><ol start='' ><li><span>一开始，固定成本高于可变成本，平均固定成本远高于平均可变成本，因此平均固定成本的变化起着决定性作用，从而使平均总成本随着产量的增加而减少；</span></li><li><span>随着产量逐渐增加，可变成本渐渐高于固定成本，平均可变成本的增加开始起决定作用，从而使平均总成本随着产量的增加而增加。</span></li></ol></li></ol></li><li><p><span>U形曲线最低点的意义：</span></p><blockquote><p><span>【重要结论】：U形曲线的底端对应着使平均总成本最小的产量。这种产量有时被称为企业的</span><mark><span>【有效规模（efficient scale）】</span></mark><span>。</span></p><p><mark><span>【有效规模】</span></mark><span>：使平均总成本最小的产量。</span></p></blockquote></li></ul><h3><a name="4-边际成本和平均总成本之间的关系" class="md-header-anchor"></a><span>4. 边际成本和平均总成本之间的关系</span></h3><blockquote><ul><li><mark><span>边际成本 &lt; 平均总成本时，平均总成本下降；</span></mark></li><li><mark><span>边际成本 &gt; 平均总成本时，平均总成本上升。</span></mark></li><li><span>上述结论对于所有的企业而言都是正确的。</span></li></ul></blockquote><ul><li><p><span>证明过程（原书中没有）</span></p><ul><li><p><span>首先，边际成本是额外增加一单位的产量所产生的总成本增量。</span></p></li><li><p><span>因为【总成本2 = 总成本1 + 边际成本1】、【总成本1 = 产量1 * 平均总成本1】、【总成本2 &lt; 平均总成本1 × 产量2】，所以：</span></p><ul><li><span>当【</span><strong><span>边际成本1 &lt; 平均总成本1</span></strong><span>】时→【总成本2 &lt; 总成本1 + 平均总成本1 】，提取公约数【产量1】，可以得出【总成本2 &lt; 平均总成本1 ×（产量1 + 1）】，即【平均总成本2 × 产量2 &lt; 平均总成本1 × 产量2】，约去【产量2】，得出【</span><strong><span>平均总成本2 &lt; 平均总成本1</span></strong><span>】，翻译过来就是：当边际成本小于平均总成本时，平均总成本下降。</span></li><li><span>【边际成本1 &gt; 平均总成本1】时的证明过程相同，略去。</span></li></ul></li></ul></li><li><p><span>由上述关系可以推出一个重要推论（非常重要）：</span></p><blockquote><p><span>边际成本曲线与平均总成本曲线在平均总成本曲线的最低点处相交。</span></p></blockquote></li></ul><h2><a name="1334-典型的成本曲线" class="md-header-anchor"></a><span>13.3.4 典型的成本曲线</span></h2><ul><li><p><span>在以上分析中，边际产量都是递减的，但是在实际企业中，情况通常要复杂一些：并不是在雇佣第一个工人之后边际产量就开始递减，根据生产过程，</span><strong><span>第二个或第三个工人的边际产量可能高于第一个，因为工人团队可以进行分工，并比只有一个工人时更有效率</span></strong><span>。</span></p></li><li><p><span>下图是这种企业的成本曲线，这也是绝大部分企业的成本曲线（牢记）。尽管和我们以上的例子有所不同，但它们同样具有三个应当记住的最重要的共同特征：</span></p><blockquote><ul><li><span>随着产量的增加，边际成本最终会上升</span></li><li><span>平均总成本曲线是U形的</span></li><li><span>边际成本曲线与平均总成本曲线在平均总成本曲线的最低点处相交。</span></li></ul></blockquote><p><img src="image-20200717215932544.png" referrerpolicy="no-referrer" alt="图5 一个典型企业的成本曲线"></p></li></ul><h1><a name="134-短期成本与长期成本" class="md-header-anchor"></a><span>13.4 短期成本与长期成本</span></h1><h2><a name="1341-短期与长期平均总成本之间的关系" class="md-header-anchor"></a><span>13.4.1 短期与长期平均总成本之间的关系</span></h2><ul><li><p><span>对许多企业来说，固定成本和可变成本并不是一成不变的，随着时间的变化，固定成本和可变成本的范围也在发生着变化。比如，工厂的数量在短期中是不变的，是固定成本；但在长期中却又是可变成本。</span></p></li><li><p><span>由于许多决策在短期中是不变的，但长期中却可变，所以企业的长期成本曲线不同于其短期成本曲线。</span></p></li><li><p><span>下图6是短期和长期的平均总成本曲线，特点是：</span></p><blockquote><ol start='' ><li><p><span>长期曲线是比短期曲线平坦得多的U形曲线</span></p><ol start='' ><li><span>因为在长期中增加产量时有更多方法来维持总成本保持在最低水平，短期内却大多只能靠多雇佣工人来增加产量，总成本就会上升（书中没有）</span></li></ol></li><li><p><span>所有短期曲线都在长期曲线上或以上。</span></p></li></ol></blockquote></li><li><p><img src="image-20200717220703690.png" referrerpolicy="no-referrer" alt="图6 短期和长期的平均总成本曲线"></p></li><li><p><span>对于一个企业来说，进入长期需要多长时间呢？对于不同企业，答案是不同的。</span></p></li></ul><h2><a name="1342-规模经济与规模不经济" class="md-header-anchor"></a><span>13.4.2 规模经济与规模不经济</span></h2><h3><a name="1-长期平均总成本曲线的形状反映了成本如何随着一个企业的经营规模而变动的信息" class="md-header-anchor"></a><span>1. 长期平均总成本曲线的形状反映了成本如何随着一个企业的经营规模而变动的信息</span></h3><h3><a name="2-三个概念" class="md-header-anchor"></a><span>2. 三个概念：</span></h3><ul><li><mark><span>【规模经济（economies of scale）】</span></mark><span>：长期平均总成本随着产量增加而减少的特性；</span></li><li><mark><span>【规模不经济（diseconomies of scale）】</span></mark><span>：长期平均总成本随着产量增加而增加的特性；</span></li><li><mark><span>【规模收益不变（constant returns to scale）】</span></mark><span>：长期平均总成本在产量变动时保持不变的特性；</span></li></ul><h3><a name="3-什么会引起规模经济和规模不经济" class="md-header-anchor"></a><span>3. 什么会引起规模经济和规模不经济？</span></h3><ul><li><span>规模经济的产生是因为较高的产量水平允许在工人中实现专业化，而专业化使工人更精通某一项工作。</span></li><li><span>规模不经济的产生可能由于任何一个大型组织中固有的协调问题。</span></li></ul><h3><a name="4-用规模经济和规模不经济解释长期总成本曲线呈u形的原因" class="md-header-anchor"></a><span>4. 用规模经济和规模不经济解释长期总成本曲线呈U形的原因</span></h3><ul><li><span>生产水平低时，企业从扩大规模中获益，因为它可以用更高程度的专业化，同时，协调问题并不尖锐。</span></li><li><span>生产水平高时，专业化的好处已经实现，但协调问题变成了主要矛盾。</span></li></ul><h1><a name="135-总结" class="md-header-anchor"></a><span>13.5 总结</span></h1><p><span>本章主要研究企业的生产成本，为以后研究企业定价及生产决策做准备。下表是本章的重要概念及定义。</span></p><p><img src="image-20200717222739422.png" referrerpolicy="no-referrer" alt="image-20200717222739422"></p><p>&nbsp;</p></div>
+</body>
+</html>
